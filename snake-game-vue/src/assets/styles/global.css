@@ -1,0 +1,235 @@
+/* 全局重置 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* CSS 变量 - 科技风格配色 */
+:root {
+  /* 背景颜色 */
+  --bg-primary: #0a0a1a;
+  --bg-secondary: #1a1a3a;
+  --bg-tertiary: #0f1f2f;
+
+  /* 霓虹色 */
+  --neon-cyan: #00ffcc;
+  --neon-blue: #00d4ff;
+  --neon-pink: #ff3366;
+  --neon-green: #00ff88;
+  --neon-purple: #aa66ff;
+  --neon-white: #f0f0f0;
+
+  /* 阴影和发光效果 */
+  --glow-cyan: 0 0 10px var(--neon-cyan), 0 0 20px var(--neon-cyan);
+  --glow-blue: 0 0 10px var(--neon-blue), 0 0 20px var(--neon-blue);
+  --glow-pink: 0 0 15px var(--neon-pink), 0 0 30px var(--neon-pink);
+  --glow-green: 0 0 10px var(--neon-green), 0 0 20px var(--neon-green);
+
+  /* 边框和线条 */
+  --border-glow: 2px solid var(--neon-cyan);
+  --grid-line: rgba(0, 212, 255, 0.1);
+
+  /* 字体 */
+  --font-tech: 'Courier New', 'Consolas', monospace;
+}
+
+/* 全局样式 */
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 50%, var(--bg-tertiary) 100%);
+  font-family: var(--font-tech);
+  color: var(--neon-white);
+  overflow: hidden;
+}
+
+/* 霓虹文字效果 */
+.neon-text {
+  color: var(--neon-cyan);
+  text-shadow: var(--glow-cyan);
+  animation: neon-flicker 3s infinite;
+}
+
+@keyframes neon-flicker {
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+    text-shadow: 0 0 10px var(--neon-cyan), 0 0 20px var(--neon-cyan);
+  }
+  20%, 24%, 55% {
+    text-shadow: none;
+  }
+}
+
+/* 扫描线效果 */
+.scanline {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(to bottom, transparent, var(--neon-cyan), transparent);
+  animation: scanline 8s linear infinite;
+  pointer-events: none;
+  z-index: 1000;
+  opacity: 0.3;
+}
+
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+/* 背景网格动画 */
+.bg-grid {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 50px 50px;
+  animation: grid-move 20s linear infinite;
+  pointer-events: none;
+  z-index: -1;
+}
+
+@keyframes grid-move {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(50px, 50px); }
+}
+
+/* 游戏容器 */
+.game-container {
+  background: var(--bg-primary);
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8),
+              0 0 20px rgba(0, 255, 204, 0.1);
+  border: 2px solid var(--neon-cyan);
+  position: relative;
+}
+
+/* Canvas 样式 */
+canvas {
+  border: 2px solid var(--neon-blue);
+  border-radius: 8px;
+  display: block;
+  box-shadow: inset 0 0 20px rgba(0, 212, 255, 0.1);
+}
+
+/* 信息面板 */
+.info-panel {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+  color: var(--neon-white);
+}
+
+.score-display {
+  font-size: 1.2rem;
+}
+
+.score-value {
+  color: var(--neon-cyan);
+  font-weight: bold;
+  text-shadow: var(--glow-cyan);
+}
+
+/* 控制说明 */
+.controls-hint {
+  margin-top: 20px;
+  color: #888;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+/* 模态框过渡 */
+.modal-enter-active,
+.modal-leave-active {
+  transition: all 0.3s ease;
+}
+
+.modal-enter-from,
+.modal-leave-to {
+  opacity: 0;
+  transform: scale(0.8);
+}
+
+/* 游戏结束模态框 */
+.game-over-modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(10, 10, 26, 0.95);
+  border: 2px solid var(--neon-pink);
+  border-radius: 15px;
+  padding: 40px;
+  text-align: center;
+  box-shadow: 0 0 30px rgba(255, 51, 102, 0.3);
+  backdrop-filter: blur(10px);
+  z-index: 100;
+}
+
+.game-over-modal h2 {
+  color: var(--neon-pink);
+  margin-bottom: 15px;
+  text-shadow: var(--glow-pink);
+  font-size: 2rem;
+}
+
+.game-over-modal p {
+  color: var(--neon-white);
+  margin-bottom: 20px;
+  font-size: 1.2rem;
+}
+
+/* 霓虹按钮 */
+.neon-button {
+  background: linear-gradient(135deg, var(--neon-green), #00cc6a);
+  color: var(--bg-primary);
+  border: none;
+  padding: 12px 30px;
+  font-size: 1rem;
+  font-weight: bold;
+  font-family: var(--font-tech);
+  border-radius: 25px;
+  cursor: pointer;
+  margin-top: 15px;
+  transition: all 0.2s ease;
+  box-shadow: 0 0 15px rgba(0, 255, 136, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.neon-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 25px rgba(0, 255, 136, 0.6),
+              0 0 40px rgba(0, 255, 136, 0.4);
+}
+
+.neon-button:active {
+  transform: scale(0.95);
+}
+
+/* 暂停状态 */
+.paused-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 3rem;
+  color: var(--neon-yellow);
+  text-shadow: 0 0 20px var(--neon-yellow);
+  animation: pulse 1s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}

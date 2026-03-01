@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run dev)",
+      "Bash(/Users/jianbin/dev_projects/vs_projects/mock_claude_code/snake-game-vue/node_modules/.bin/vite)",
+      "Bash(claude mcp list)"
+    ]
+  }
+}
