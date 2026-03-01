@@ -1,0 +1,25 @@
+[project]
+# 建议项目名称使用连字符 (kebab-case)，这是 Python 打包的标准规范
+name = "mock-claude-code"
+version = "0.1.0"
+description = "这是一个测试 openapi 项目"
+requires-python = ">=3.12"
+dependencies = [
+    "python-dotenv",
+    "openai"
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+# --- 关键修复部分 ---
+# 必须放在 [tool.hatch.build.targets.wheel] 下
+[tool.hatch.build.targets.wheel]
+# 告诉 hatchling：直接把 src 目录下的所有 .py 文件当作包打包
+# 因为你的结构是 src/test.py，而不是 src/mock_claude_code/test.py
+packages = ["src"]
+
+# 可选：如果你希望导入时直接写 `import test` 而不是 `import src.test`
+# 你可能需要调整目录结构为 src/mock_claude_code/test.py 并设置 packages = ["src/mock_claude_code"]
+# 但为了快速运行，保持 packages = ["src"] 即可，导入时使用 import src.test

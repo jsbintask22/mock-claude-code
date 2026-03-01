@@ -1,0 +1,27 @@
+# --- 敏感信息 (绝对不要上传) ---
+.env
+.env.local
+*.key
+
+# --- Python 虚拟环境 ---
+.venv/
+venv/
+
+# --- Python 缓存和构建文件 ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+.mypy_cache/
+
+# --- uv 锁文件 (可选，通常建议上传以便复现环境) ---
+# uv.lock 建议保留，这样别人可以精确还原你的依赖版本
+# 但如果你不想上传，可以取消下面这行的注释
+# uv.lock
+
+# --- IDE 配置 (可选) ---
+.vscode/
+.idea/
+*.swp
+*.swo
